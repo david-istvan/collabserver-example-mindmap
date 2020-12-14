@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  CentralTopic.h
 //  Implementation of the Class CentralTopic
-//  Created on:      14-dec.-2020 12:59:05
+//  Created on:      14-dec.-2020 17:53:42
 //  Original author: Istvan DAVID
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_EF04874A_01E0_4635_9C74_A805FB59377C__INCLUDED_)
-#define EA_EF04874A_01E0_4635_9C74_A805FB59377C__INCLUDED_
+#if !defined(EA_A66A1E57_3868_42af_BE76_93A25D420811__INCLUDED_)
+#define EA_A66A1E57_3868_42af_BE76_93A25D420811__INCLUDED_
 
 #include "Topic.h"
 #include "MainTopic.h"
@@ -20,4 +20,4 @@ public:
 	MainTopic *m_MainTopic;
 
 };
-#endif // !defined(EA_EF04874A_01E0_4635_9C74_A805FB59377C__INCLUDED_)
+#endif // !defined(EA_A66A1E57_3868_42af_BE76_93A25D420811__INCLUDED_)

@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  Marker.h
 //  Implementation of the Class Marker
-//  Created on:      14-dec.-2020 12:59:05
+//  Created on:      14-dec.-2020 17:53:43
 //  Original author: Istvan DAVID
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_84732D68_3944_4801_8C29_33A626AE24CD__INCLUDED_)
-#define EA_84732D68_3944_4801_8C29_33A626AE24CD__INCLUDED_
+#if !defined(EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_)
+#define EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_
 
 class Marker
 {
@@ -23,4 +23,4 @@ private:
 	const char* symbol;
 
 };
-#endif // !defined(EA_84732D68_3944_4801_8C29_33A626AE24CD__INCLUDED_)
+#endif // !defined(EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_)

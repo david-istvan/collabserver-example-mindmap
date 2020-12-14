@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  Mindmap.h
 //  Implementation of the Class Mindmap
-//  Created on:      14-dec.-2020 12:59:05
+//  Created on:      14-dec.-2020 17:53:43
 //  Original author: Istvan DAVID
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_8D22742A_8738_413a_8DA0_9EF48390B1C1__INCLUDED_)
-#define EA_8D22742A_8738_413a_8DA0_9EF48390B1C1__INCLUDED_
+#if !defined(EA_0F49C380_A31A_4d87_8CDE_D977DA6D000B__INCLUDED_)
+#define EA_0F49C380_A31A_4d87_8CDE_D977DA6D000B__INCLUDED_
 
 #include "CentralTopic.h"
 #include "Marker.h"
@@ -28,4 +28,4 @@ private:
 	const char* name;
 
 };
-#endif // !defined(EA_8D22742A_8738_413a_8DA0_9EF48390B1C1__INCLUDED_)
+#endif // !defined(EA_0F49C380_A31A_4d87_8CDE_D977DA6D000B__INCLUDED_)

@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  MainTopic.h
 //  Implementation of the Class MainTopic
-//  Created on:      14-dec.-2020 12:59:05
+//  Created on:      14-dec.-2020 17:53:43
 //  Original author: Istvan DAVID
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_5E0BF563_4B06_48fe_9163_F459F6E829D5__INCLUDED_)
-#define EA_5E0BF563_4B06_48fe_9163_F459F6E829D5__INCLUDED_
+#if !defined(EA_08E6FF56_B11D_4386_9F6F_ED5CE9F78093__INCLUDED_)
+#define EA_08E6FF56_B11D_4386_9F6F_ED5CE9F78093__INCLUDED_
 
 #include "Topic.h"
 #include "SubTopic.h"
@@ -20,4 +20,4 @@ public:
 	SubTopic *m_SubTopic;
 
 };
-#endif // !defined(EA_5E0BF563_4B06_48fe_9163_F459F6E829D5__INCLUDED_)
+#endif // !defined(EA_08E6FF56_B11D_4386_9F6F_ED5CE9F78093__INCLUDED_)

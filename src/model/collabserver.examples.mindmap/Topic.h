@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  Topic.h
 //  Implementation of the Class Topic
-//  Created on:      14-dec.-2020 12:59:05
+//  Created on:      14-dec.-2020 17:53:43
 //  Original author: Istvan DAVID
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_EDA0EFDC_4780_4e7e_B779_60DAC1377069__INCLUDED_)
-#define EA_EDA0EFDC_4780_4e7e_B779_60DAC1377069__INCLUDED_
+#if !defined(EA_94A46B22_5998_435a_943B_D12D1846FDB7__INCLUDED_)
+#define EA_94A46B22_5998_435a_943B_D12D1846FDB7__INCLUDED_
 
 #include "Marker.h"
 
@@ -26,4 +26,4 @@ private:
 	const char* name;
 
 };
-#endif // !defined(EA_EDA0EFDC_4780_4e7e_B779_60DAC1377069__INCLUDED_)
+#endif // !defined(EA_94A46B22_5998_435a_943B_D12D1846FDB7__INCLUDED_)
