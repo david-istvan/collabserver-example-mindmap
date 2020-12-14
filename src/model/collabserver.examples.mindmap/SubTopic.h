@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  SubTopic.h
 //  Implementation of the Class SubTopic
-//  Created on:      14-dec.-2020 11:22:26
+//  Created on:      14-dec.-2020 12:59:05
 //  Original author: Istvan DAVID
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_4FFEDDB3_AD3E_46b8_8EFF_D3C9D6262FEF__INCLUDED_)
-#define EA_4FFEDDB3_AD3E_46b8_8EFF_D3C9D6262FEF__INCLUDED_
+#if !defined(EA_8D953524_58B0_4223_AB5D_4A9A4996EB1D__INCLUDED_)
+#define EA_8D953524_58B0_4223_AB5D_4A9A4996EB1D__INCLUDED_
 
 #include "Topic.h"
 
@@ -18,4 +18,4 @@ public:
 	virtual ~SubTopic();
 
 };
-#endif // !defined(EA_4FFEDDB3_AD3E_46b8_8EFF_D3C9D6262FEF__INCLUDED_)
+#endif // !defined(EA_8D953524_58B0_4223_AB5D_4A9A4996EB1D__INCLUDED_)

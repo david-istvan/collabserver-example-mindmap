@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  Topic.h
 //  Implementation of the Class Topic
-//  Created on:      14-dec.-2020 11:22:26
+//  Created on:      14-dec.-2020 12:59:05
 //  Original author: Istvan DAVID
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_B665DA74_38E1_4d43_AC24_ED262303739A__INCLUDED_)
-#define EA_B665DA74_38E1_4d43_AC24_ED262303739A__INCLUDED_
+#if !defined(EA_EDA0EFDC_4780_4e7e_B779_60DAC1377069__INCLUDED_)
+#define EA_EDA0EFDC_4780_4e7e_B779_60DAC1377069__INCLUDED_
 
 #include "Marker.h"
 
@@ -18,8 +18,12 @@ public:
 	virtual ~Topic();
 	Marker *m_Marker;
 
+	Topic(const char* _name);
+	const char* GetName();
+	void SetName(const char* newVal);
+
 private:
-	std::string name;
+	const char* name;
 
 };
-#endif // !defined(EA_B665DA74_38E1_4d43_AC24_ED262303739A__INCLUDED_)
+#endif // !defined(EA_EDA0EFDC_4780_4e7e_B779_60DAC1377069__INCLUDED_)

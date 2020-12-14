@@ -1,12 +1,12 @@
 ///////////////////////////////////////////////////////////
 //  Mindmap.h
 //  Implementation of the Class Mindmap
-//  Created on:      14-dec.-2020 11:22:26
+//  Created on:      14-dec.-2020 12:59:05
 //  Original author: Istvan DAVID
 ///////////////////////////////////////////////////////////
 
-#if !defined(EA_7FB857FF_89CA_4377_AB0D_AE99E7500C20__INCLUDED_)
-#define EA_7FB857FF_89CA_4377_AB0D_AE99E7500C20__INCLUDED_
+#if !defined(EA_8D22742A_8738_413a_8DA0_9EF48390B1C1__INCLUDED_)
+#define EA_8D22742A_8738_413a_8DA0_9EF48390B1C1__INCLUDED_
 
 #include "CentralTopic.h"
 #include "Marker.h"
@@ -20,8 +20,12 @@ public:
 	CentralTopic *m_CentralTopic;
 	Marker *m_Marker;
 
+	Mindmap(const char* _name);
+	const char* GetName();
+	void SetName(const char* newVal);
+
 private:
-	std::string name;
+	const char* name;
 
 };
-#endif // !defined(EA_7FB857FF_89CA_4377_AB0D_AE99E7500C20__INCLUDED_)
+#endif // !defined(EA_8D22742A_8738_413a_8DA0_9EF48390B1C1__INCLUDED_)
