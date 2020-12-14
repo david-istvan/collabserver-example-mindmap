@@ -23,7 +23,7 @@ Marker::~Marker(){
 
 
 Marker::Marker(const char* _name){
-
+    name = _name;
 }
 
 

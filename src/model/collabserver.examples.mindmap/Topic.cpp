@@ -23,7 +23,7 @@ Topic::~Topic(){
 
 
 Topic::Topic(const char* _name){
-
+    name = _name;
 }
 
 

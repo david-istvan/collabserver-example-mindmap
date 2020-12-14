@@ -23,7 +23,7 @@ Mindmap::~Mindmap(){
 
 
 Mindmap::Mindmap(const char* _name){
-
+    name = _name;
 }
 
 
