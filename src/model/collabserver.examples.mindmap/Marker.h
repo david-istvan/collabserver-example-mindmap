@@ -8,20 +8,17 @@
 #if !defined(EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_)
 #define EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_
 
-class Marker
-{
+class Marker {
+   public:
+    Marker();
+    virtual ~Marker();
 
-public:
-	Marker();
-	virtual ~Marker();
+    Marker(const char* _name);
+    const char* GetSymbol();
+    void SetSymbol(const char* newVal);
 
-	Marker(const char* _name);
-	const char* GetSymbol();
-	void SetSymbol(const char* newVal);
-
-private:
-	const char* symbol;
-	const char* name;
-
+   private:
+    const char* symbol;
+    const char* name;
 };
-#endif // !defined(EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_)
+#endif  // !defined(EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_)

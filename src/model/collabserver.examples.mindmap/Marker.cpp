@@ -7,33 +7,12 @@
 
 #include "Marker.h"
 
+Marker::Marker() {}
 
-Marker::Marker(){
+Marker::~Marker() {}
 
-}
+Marker::Marker(const char* _name) { name = _name; }
 
+const char* Marker::GetSymbol() { return symbol; }
 
-
-Marker::~Marker(){
-
-}
-
-
-
-
-
-Marker::Marker(const char* _name){
-    name = _name;
-}
-
-
-const char* Marker::GetSymbol(){
-
-	return symbol;
-}
-
-
-void Marker::SetSymbol(const char* newVal){
-
-	symbol = newVal;
-}
+void Marker::SetSymbol(const char* newVal) { symbol = newVal; }

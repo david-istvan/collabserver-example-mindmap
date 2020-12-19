@@ -7,13 +7,6 @@
 
 #include "SubTopic.h"
 
+SubTopic::SubTopic() {}
 
-SubTopic::SubTopic(){
-
-}
-
-
-
-SubTopic::~SubTopic(){
-
-}
+SubTopic::~SubTopic() {}

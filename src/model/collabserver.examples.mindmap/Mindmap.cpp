@@ -7,33 +7,12 @@
 
 #include "Mindmap.h"
 
+Mindmap::Mindmap() {}
 
-Mindmap::Mindmap(){
+Mindmap::~Mindmap() {}
 
-}
+Mindmap::Mindmap(const char* _name) { name = _name; }
 
+const char* Mindmap::GetName() { return name; }
 
-
-Mindmap::~Mindmap(){
-
-}
-
-
-
-
-
-Mindmap::Mindmap(const char* _name){
-    name = _name;
-}
-
-
-const char* Mindmap::GetName(){
-
-	return name;
-}
-
-
-void Mindmap::SetName(const char* newVal){
-
-	name = newVal;
-}
+void Mindmap::SetName(const char* newVal) { name = newVal; }

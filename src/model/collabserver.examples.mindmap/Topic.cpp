@@ -7,33 +7,12 @@
 
 #include "Topic.h"
 
+Topic::Topic() {}
 
-Topic::Topic(){
+Topic::~Topic() {}
 
-}
+Topic::Topic(const char* _name) { name = _name; }
 
+const char* Topic::GetName() { return name; }
 
-
-Topic::~Topic(){
-
-}
-
-
-
-
-
-Topic::Topic(const char* _name){
-    name = _name;
-}
-
-
-const char* Topic::GetName(){
-
-	return name;
-}
-
-
-void Topic::SetName(const char* newVal){
-
-	name = newVal;
-}
+void Topic::SetName(const char* newVal) { name = newVal; }

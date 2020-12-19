@@ -10,20 +10,17 @@
 
 #include "Marker.h"
 
-class Topic
-{
+class Topic {
+   public:
+    Topic();
+    virtual ~Topic();
+    Marker* m_Marker;
 
-public:
-	Topic();
-	virtual ~Topic();
-	Marker *m_Marker;
+    Topic(const char* _name);
+    const char* GetName();
+    void SetName(const char* newVal);
 
-	Topic(const char* _name);
-	const char* GetName();
-	void SetName(const char* newVal);
-
-private:
-	const char* name;
-
+   private:
+    const char* name;
 };
-#endif // !defined(EA_94A46B22_5998_435a_943B_D12D1846FDB7__INCLUDED_)
+#endif  // !defined(EA_94A46B22_5998_435a_943B_D12D1846FDB7__INCLUDED_)

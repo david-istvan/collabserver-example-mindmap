@@ -8,16 +8,13 @@
 #if !defined(EA_A66A1E57_3868_42af_BE76_93A25D420811__INCLUDED_)
 #define EA_A66A1E57_3868_42af_BE76_93A25D420811__INCLUDED_
 
-#include "Topic.h"
 #include "MainTopic.h"
+#include "Topic.h"
 
-class CentralTopic : public Topic
-{
-
-public:
-	CentralTopic();
-	virtual ~CentralTopic();
-	MainTopic *m_MainTopic;
-
+class CentralTopic : public Topic {
+   public:
+    CentralTopic();
+    virtual ~CentralTopic();
+    MainTopic *m_MainTopic;
 };
-#endif // !defined(EA_A66A1E57_3868_42af_BE76_93A25D420811__INCLUDED_)
+#endif  // !defined(EA_A66A1E57_3868_42af_BE76_93A25D420811__INCLUDED_)

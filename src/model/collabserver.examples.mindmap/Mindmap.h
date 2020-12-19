@@ -11,21 +11,18 @@
 #include "CentralTopic.h"
 #include "Marker.h"
 
-class Mindmap
-{
+class Mindmap {
+   public:
+    Mindmap();
+    virtual ~Mindmap();
+    CentralTopic* m_CentralTopic;
+    Marker* m_Marker;
 
-public:
-	Mindmap();
-	virtual ~Mindmap();
-	CentralTopic *m_CentralTopic;
-	Marker *m_Marker;
+    Mindmap(const char* _name);
+    const char* GetName();
+    void SetName(const char* newVal);
 
-	Mindmap(const char* _name);
-	const char* GetName();
-	void SetName(const char* newVal);
-
-private:
-	const char* name;
-
+   private:
+    const char* name;
 };
-#endif // !defined(EA_0F49C380_A31A_4d87_8CDE_D977DA6D000B__INCLUDED_)
+#endif  // !defined(EA_0F49C380_A31A_4d87_8CDE_D977DA6D000B__INCLUDED_)

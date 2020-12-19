@@ -7,13 +7,6 @@
 
 #include "MainTopic.h"
 
+MainTopic::MainTopic() {}
 
-MainTopic::MainTopic(){
-
-}
-
-
-
-MainTopic::~MainTopic(){
-
-}
+MainTopic::~MainTopic() {}

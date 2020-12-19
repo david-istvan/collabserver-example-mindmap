@@ -7,13 +7,6 @@
 
 #include "CentralTopic.h"
 
+CentralTopic::CentralTopic() {}
 
-CentralTopic::CentralTopic(){
-
-}
-
-
-
-CentralTopic::~CentralTopic(){
-
-}
+CentralTopic::~CentralTopic() {}

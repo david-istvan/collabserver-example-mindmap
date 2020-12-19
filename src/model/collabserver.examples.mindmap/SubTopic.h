@@ -10,12 +10,9 @@
 
 #include "Topic.h"
 
-class SubTopic : public Topic
-{
-
-public:
-	SubTopic();
-	virtual ~SubTopic();
-
+class SubTopic : public Topic {
+   public:
+    SubTopic();
+    virtual ~SubTopic();
 };
-#endif // !defined(EA_B99B158B_E80A_4a82_B0C7_E7CE002E6867__INCLUDED_)
+#endif  // !defined(EA_B99B158B_E80A_4a82_B0C7_E7CE002E6867__INCLUDED_)
