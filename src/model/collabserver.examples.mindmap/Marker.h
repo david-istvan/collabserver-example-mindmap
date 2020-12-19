@@ -21,6 +21,7 @@ public:
 
 private:
 	const char* symbol;
+	const char* name;
 
 };
 #endif // !defined(EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_)
