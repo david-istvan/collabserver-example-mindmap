@@ -1,28 +1,20 @@
-///////////////////////////////////////////////////////////
-//  Mindmap.h
-//  Implementation of the Class Mindmap
-//  Created on:      14-dec.-2020 17:53:43
-//  Original author: Istvan DAVID
-///////////////////////////////////////////////////////////
+#pragma once
 
-#if !defined(EA_0F49C380_A31A_4d87_8CDE_D977DA6D000B__INCLUDED_)
-#define EA_0F49C380_A31A_4d87_8CDE_D977DA6D000B__INCLUDED_
+#include <vector>
 
-#include "CentralTopic.h"
-#include "Marker.h"
+#include "mindmap/CentralTopic.h"
+#include "mindmap/Marker.h"
 
 class Mindmap {
    public:
-    Mindmap();
-    virtual ~Mindmap();
-    CentralTopic* m_CentralTopic;
-    Marker* m_Marker;
+    Mindmap() = default;
+    Mindmap(const char* _name) : m_name{_name} {}
 
-    Mindmap(const char* _name);
-    const char* GetName();
-    void SetName(const char* newVal);
+    const char* getName() const { return m_name; }
+    void setName(const char* _name) { m_name = _name; }
 
    private:
-    const char* name;
+    const char* m_name;
+    CentralTopic* m_centralTopic;
+    std::vector<Marker> m_markers;
 };
-#endif  // !defined(EA_0F49C380_A31A_4d87_8CDE_D977DA6D000B__INCLUDED_)

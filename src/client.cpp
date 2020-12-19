@@ -1,4 +1,7 @@
 #include <iostream>
+
+#include "mindmap/Mindmap.h"
+
 using namespace std;
 
 int main() {

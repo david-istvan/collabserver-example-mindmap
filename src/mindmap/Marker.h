@@ -1,24 +1,14 @@
-///////////////////////////////////////////////////////////
-//  Marker.h
-//  Implementation of the Class Marker
-//  Created on:      14-dec.-2020 17:53:43
-//  Original author: Istvan DAVID
-///////////////////////////////////////////////////////////
-
-#if !defined(EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_)
-#define EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_
+#pragma once
 
 class Marker {
    public:
-    Marker();
-    virtual ~Marker();
+    Marker() = default;
+    Marker(const char* _name) : m_name{_name} {}
 
-    Marker(const char* _name);
-    const char* GetSymbol();
-    void SetSymbol(const char* newVal);
+    const char* getSymbol() { return m_symbol; }
+    void setSymbol(const char* _symbol) { m_symbol = _symbol; }
 
    private:
-    const char* symbol;
-    const char* name;
+    const char* m_symbol;
+    const char* m_name;
 };
-#endif  // !defined(EA_2399B671_4E82_4d10_ACB5_EDC44F90903B__INCLUDED_)

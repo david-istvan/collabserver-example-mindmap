@@ -1,26 +1,17 @@
-///////////////////////////////////////////////////////////
-//  Topic.h
-//  Implementation of the Class Topic
-//  Created on:      14-dec.-2020 17:53:43
-//  Original author: Istvan DAVID
-///////////////////////////////////////////////////////////
+#pragma once
 
-#if !defined(EA_94A46B22_5998_435a_943B_D12D1846FDB7__INCLUDED_)
-#define EA_94A46B22_5998_435a_943B_D12D1846FDB7__INCLUDED_
-
-#include "Marker.h"
+#include "mindmap/Marker.h"
 
 class Topic {
    public:
-    Topic();
-    virtual ~Topic();
-    Marker* m_Marker;
+    Topic() = default;
+    Topic(const char* _name) : m_name{_name} {}
+    virtual ~Topic() = default;
 
-    Topic(const char* _name);
-    const char* GetName();
-    void SetName(const char* newVal);
+    const char* getName() const { return m_name; }
+    void setName(const char* _name) { m_name = _name; };
 
    private:
-    const char* name;
+    const char* m_name;
+    Marker* m_marker;
 };
-#endif  // !defined(EA_94A46B22_5998_435a_943B_D12D1846FDB7__INCLUDED_)
