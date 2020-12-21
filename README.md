@@ -2,13 +2,12 @@
 
 ## Overview
 
----
-
 This is a demonstrator project for the [CollabServer Framework](https://github.com/collabserver/).
+
+---
 
 ## Build (CMake)
 
----
 
 - Requirements
   - [CMake](https://cmake.org/)
@@ -34,15 +33,15 @@ make
 | --- | --- |
 | CMAKE_BUILD_TYPE | Debug, Release, RelWithDebInfo, MinSizeRel |
 
-## Mindmap domain model
-
 ---
+
+## Mindmap domain model
 
 ![EA mindmap model](model/domainmodel.png)
 
-## Mindmap client commands
-
 ---
+
+## Mindmap client commands
 
 * ```CREATE [type] [name]``` - Creates an instance with name ```[name]``` of the domain-specific type ```[type]```.
 * ```CREATE association [type] [sourceName] [targetName]``` - Creates an instance of the association type ```[type]``` between the correspondingly typed objects named ```[sourceName]``` and ```[targetName]```, respectively.
