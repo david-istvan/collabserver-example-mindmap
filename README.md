@@ -39,12 +39,3 @@ make
 ---
 
 ![EA mindmap model](model/domainmodel.png)
-
-## Contribution
-
----
-
-Feel free to ask me any question, share your ideas or open an issue.
-I started this project during my master thesis at University of Montreal.
-Format uses clang-format with the Google Coding style <https://google.github.io/styleguide/cppguide.html> (see `.clang-format` for further information).
-Make sure you autoformat on save (see <https://clang.llvm.org/docs/ClangFormat.html>)
