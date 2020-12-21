@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a demonstrator project for the [CollabServer Framework](https://github.com/collabserver/).
+This is a demonstrator project for the [CollabServer Framework](https://github.com/collabserver/). A command-line client is created for manipulating Mindmap models, corresponding to the [domain model](https://github.com/david-istvan/collabserver-example-mindmap/blob/main/README.md#mindmap-domain-model), using a minimalistic [instruction set](https://github.com/david-istvan/collabserver-example-mindmap/blob/main/README.md#mindmap-client-commands).
 
 
 ## Build (CMake)
