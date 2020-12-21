@@ -4,7 +4,6 @@
 
 This is a demonstrator project for the [CollabServer Framework](https://github.com/collabserver/).
 
----
 
 ## Build (CMake)
 
@@ -33,13 +32,10 @@ make
 | --- | --- |
 | CMAKE_BUILD_TYPE | Debug, Release, RelWithDebInfo, MinSizeRel |
 
----
 
 ## Mindmap domain model
 
 ![EA mindmap model](model/domainmodel.png)
-
----
 
 ## Mindmap client commands
 
