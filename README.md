@@ -4,7 +4,7 @@
 
 ---
 
-Mindmap is a tool that uses the [CollabServer Framework](https://github.com/collabserver/) to work with several collaborators in realtime.
+This is a demonstrator project for the [CollabServer Framework](https://github.com/collabserver/).
 
 ## Build (CMake)
 
