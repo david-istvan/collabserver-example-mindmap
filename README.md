@@ -1,4 +1,4 @@
-# collabserver-example-mindmap
+# Mindmap example for [CollabServer](https://github.com/collabserver/)
 
 ## Overview
 
