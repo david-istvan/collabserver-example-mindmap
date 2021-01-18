@@ -1,5 +1,7 @@
 #pragma once
 
+#include <collabserver/datatypes/collabdata/CollabData.h>
+
 #include <vector>
 
 #include "mindmap/CentralTopic.h"
