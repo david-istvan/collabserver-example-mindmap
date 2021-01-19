@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 
+#include "collaboration/Timestamp.h"
 #include "mindmap/CentralTopic.h"
 #include "mindmap/Marker.h"
 
@@ -38,24 +39,26 @@ class Mindmap : public collabserver::CollabData {
 
     class MindmapSetNameOperation : public collabserver::CollabDataOperation {
        public:
+        MindmapSetNameOperation() = default;
+        MindmapSetNameOperation(const std::string& name, const Timestamp& time);
         unsigned int getType() const override { return OPERATION_MINDMAP_SET_NAME; }
-        bool serialize(std::stringstream& buffer) const;
-        bool unserialize(const std::stringstream& buffer);
-        void accept(collabserver::CollabDataOperationHandler& handler) const;
+        bool serialize(std::stringstream& _buffer) const;
+        bool unserialize(const std::stringstream& _buffer);
+        void accept(collabserver::CollabDataOperationHandler& _handler) const;
 
         std::string m_name;
-        int m_timestamp;  // TODO to update with actual timestamp
+        Timestamp m_timestamp = {0};
     };
 
-    bool applyExternOperation(unsigned int id, const std::string& buffer) override;
+    bool applyExternOperation(unsigned int _id, const std::string& _buffer) override;
 
    private:
     Mindmap(unsigned int _localID) : m_localID(_localID) {}
 
-    void applyOperation(const MindmapSetNameOperation& op);
+    void applyOperation(const MindmapSetNameOperation& _op);
 
     /// ------------------------------------------------------------------------
 
-    unsigned int m_localID;                              // Used for Timestamp
-    collabserver::LWWRegister<std::string, int> m_name;  // TODO Change the int to actual Timestamp
+    unsigned int m_localID;  // Used for Timestamp
+    collabserver::LWWRegister<std::string, Timestamp> m_name;
 };

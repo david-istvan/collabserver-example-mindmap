@@ -19,22 +19,20 @@ std::unique_ptr<Mindmap> Mindmap::buidlnew(unsigned int _localID) {
 const std::string& Mindmap::getName() const { return m_name.query(); }
 
 void Mindmap::setName(std::string& _name) {
-    MindmapSetNameOperation op;
-    op.m_timestamp = 0;  // TODO to update with actual timestamp
-    op.m_name = _name;
+    Timestamp::setEffectiveID(m_localID);
+    MindmapSetNameOperation op = {_name, Timestamp::now()};
     this->applyOperation(op);
     this->notifyOperationBroadcaster(op);
-    // TODO
 };
 
 // -----------------------------------------------------------------------------
 
-void Mindmap::applyOperation(const MindmapSetNameOperation& op) {
+void Mindmap::applyOperation(const MindmapSetNameOperation& _op) {
     std::lock_guard<std::mutex> lock(l_opMutex);
-    auto& tnow = op.m_timestamp;
-    bool isUpdate = m_name.update(op.m_name, tnow);
+    auto& tnow = _op.m_timestamp;
+    bool isUpdate = m_name.update(_op.m_name, tnow);
     if (isUpdate) {
-        this->notifyOperationObservers(op);
+        this->notifyOperationObservers(_op);
     }
 }
 
@@ -47,6 +45,7 @@ bool Mindmap::applyExternOperation(unsigned int _id, const std::string& _buffer)
             if (!op.unserialize(opBuffer)) {
                 return false;
             }
+            Timestamp::setEffectiveID(op.m_timestamp.getID());
             applyOperation(op);
         } break;
         default:
@@ -59,17 +58,20 @@ bool Mindmap::applyExternOperation(unsigned int _id, const std::string& _buffer)
 
 // -----------------------------------------------------------------------------
 
-bool Mindmap::MindmapSetNameOperation::serialize(std::stringstream& buffer) const {
-    buffer << m_name;
+Mindmap::MindmapSetNameOperation::MindmapSetNameOperation(const std::string& _name, const Timestamp& _time)
+    : m_name(_name), m_timestamp(_time) {}
+
+bool Mindmap::MindmapSetNameOperation::serialize(std::stringstream& _buffer) const {
+    _buffer << m_name;
     return true;
 }
 
-bool Mindmap::MindmapSetNameOperation::unserialize(const std::stringstream& buffer) {
-    std::string str(buffer.str());
+bool Mindmap::MindmapSetNameOperation::unserialize(const std::stringstream& _buffer) {
+    std::string str(_buffer.str());
     m_name = str;
     return true;
 }
 
-void Mindmap::MindmapSetNameOperation::accept(collabserver::CollabDataOperationHandler& handler) const {
+void Mindmap::MindmapSetNameOperation::accept(collabserver::CollabDataOperationHandler& _handler) const {
     // TODO
 }
