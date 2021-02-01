@@ -4,9 +4,18 @@
 
 This is a demonstrator project for the [CollabServer Framework](https://github.com/collabserver/). A command-line client is created for manipulating Mindmap models, corresponding to the [domain model](https://github.com/david-istvan/collabserver-example-mindmap/blob/main/README.md#mindmap-domain-model), using a minimalistic [instruction set](https://github.com/david-istvan/collabserver-example-mindmap/blob/main/README.md#mindmap-client-commands).
 
+## Mindmap client commands
+
+Commands line to work on a mindmap (this is WIP)
+
+- ```CREATE [type] [name]``` - Creates an instance with name ```[name]``` of the domain-specific type ```[type]```.
+- ```CREATE association [type] [sourceName] [targetName]``` - Creates an instance of the association type ```[type]``` between the correspondingly typed objects named ```[sourceName]``` and ```[targetName]```, respectively.
+  - Note, that both ```CREATE``` commands conform to the same abstract signtaure ```CREATE [logicalType] [domaintype] [namedReference..]```, where ```[domainType]``` is the reference to the domain-specific type, and ```[logicalType]``` is the reference to the logical level type (present at the API), with the added syntactic sugar of ```Entity``` being the default ```[logicalType]```. For details on domain-specific vs logical types, see [this overview](https://raw.githubusercontent.com/david-istvan/collabserver-example-mindmap/main/model/mapping.png).
+- ```READ``` - Returns the mindmap model in a readable form.
+- ```UPDATE [name] [property] [value]``` - Updates property ```[property]``` in object ```[name]``` to value ```[value]```.
+- ```DELETE [name]``` - Deletes object ```[name]```.
 
 ## Build (CMake)
-
 
 - Requirements
   - [CMake](https://cmake.org/)
@@ -32,16 +41,6 @@ make
 | --- | --- |
 | CMAKE_BUILD_TYPE | Debug, Release, RelWithDebInfo, MinSizeRel |
 
-
 ## Mindmap domain model
 
 ![EA mindmap model](model/domainmodel.png)
-
-## Mindmap client commands
-
-* ```CREATE [type] [name]``` - Creates an instance with name ```[name]``` of the domain-specific type ```[type]```.
-* ```CREATE association [type] [sourceName] [targetName]``` - Creates an instance of the association type ```[type]``` between the correspondingly typed objects named ```[sourceName]``` and ```[targetName]```, respectively.
-   *  Note, that both ```CREATE``` commands conform to the same abstract signtaure ```CREATE [logicalType] [domaintype] [namedReference..]```, where ```[domainType]``` is the reference to the domain-specific type, and ```[logicalType]``` is the reference to the logical level type (present at the API), with the added syntactic sugar of ```Entity``` being the default ```[logicalType]```. For details on domain-specific vs logical types, see [this overview](https://raw.githubusercontent.com/david-istvan/collabserver-example-mindmap/main/model/mapping.png).
-* ```READ``` - Returns the mindmap model in a readable form.
-* ```UPDATE [name] [property] [value]``` - Updates property ```[property]``` in object ```[name]``` to value ```[value]```.
-* ```DELETE [name]``` - Deletes object ```[name]```.
