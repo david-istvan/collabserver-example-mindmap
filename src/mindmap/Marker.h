@@ -1,14 +1,25 @@
 #pragma once
 
+#include <string>
+
 class Marker {
    public:
     Marker() = default;
-    Marker(const char* _name) : m_name{_name} {}
 
-    const char* getSymbol() { return m_symbol; }
-    void setSymbol(const char* _symbol) { m_symbol = _symbol; }
+    const std::string& getSymbol() { return m_symbol; }
+    void setSymbol(const std::string& _symbol) { m_symbol = _symbol; }
+
+    friend bool operator==(const Marker& lhs, const Marker& rhs) { return lhs.m_symbol == rhs.m_symbol; }
+    friend bool operator!=(const Marker& lhs, const Marker& rhs) { return !(lhs.m_symbol == rhs.m_symbol); }
 
    private:
-    const char* m_symbol;
-    const char* m_name;
+    friend std::hash<Marker>;
+    std::string m_symbol;
+};
+
+// See https://en.cppreference.com/w/cpp/utility/hash/operator()
+template <>
+class std::hash<Marker> {
+   public:
+    std::size_t operator()(const Marker& _marker) const noexcept { return std::hash<std::string>{}(_marker.m_symbol); }
 };
