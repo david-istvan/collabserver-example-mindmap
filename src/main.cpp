@@ -1,10 +1,15 @@
 #include <iostream>
 
 #include "mindmap/Mindmap.h"
+#include "modeling/Document.h"
 
 using namespace std;
 
 int main() {
+#if 0
+    // TODO Temporary commented
+    // For now, the mindmap implementation is on hold (work on the modeling document instead)
+
     /**
      *  Command format:
      *  * CREATE [logicalTypeName] [domainTypeName] [name]
@@ -15,11 +20,11 @@ int main() {
     string command;
     string operation;
     string args;
-	string what;
+    string what;
     string logicalTypeName;
-	string domainTypeName;
+    string domainTypeName;
     string name;
-	string name2;
+    string name2;
     string property;
     string value;
 
@@ -36,29 +41,30 @@ int main() {
             pos = args.find(' ', 0);
             what = args.substr(0, pos);
             args = args.substr(pos + 1);
-			
-			if(what=="association"){
-				pos = args.find(' ', 0);
-				domainTypeName = args.substr(0, pos);
-				args = args.substr(pos + 1);
-				
-				pos = args.find(' ', 0);
-				name = args.substr(0, pos);
-				args = args.substr(pos + 1);
-				
-				pos = args.find(' ', 0);
-				name2 = args.substr(0, pos);
 
-				cout << "...creation of association  of type " << domainTypeName << " between " << name << " and " << name2 << endl;
-			}else{
-				domainTypeName = what;
-				
-				pos = args.find(' ', 0);
-				name = args.substr(0, pos);
-				args = args.substr(pos + 1);
-				
-				cout << "...creation of entity of type " << domainTypeName << " named " << name << endl;
-			}
+            if (what == "association") {
+                pos = args.find(' ', 0);
+                domainTypeName = args.substr(0, pos);
+                args = args.substr(pos + 1);
+
+                pos = args.find(' ', 0);
+                name = args.substr(0, pos);
+                args = args.substr(pos + 1);
+
+                pos = args.find(' ', 0);
+                name2 = args.substr(0, pos);
+
+                cout << "...creation of association  of type " << domainTypeName << " between " << name << " and "
+                     << name2 << endl;
+            } else {
+                domainTypeName = what;
+
+                pos = args.find(' ', 0);
+                name = args.substr(0, pos);
+                args = args.substr(pos + 1);
+
+                cout << "...creation of entity of type " << domainTypeName << " named " << name << endl;
+            }
         } else if (operation == "read") {
             cout << "...reading mindmap" << endl;
         } else if (operation == "update") {
@@ -83,6 +89,8 @@ int main() {
             cout << "unknown command\n";
         }
     } while (true);
+
+#endif
 
     return 0;
 }
