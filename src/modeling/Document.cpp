@@ -1,10 +1,10 @@
 #include "Document.h"
 
-Node& Document::addNode(std::string& _key, std::string& _value) {
+Node& Document::addNode(const std::string& _key, const std::string& _value) {
     // TODO not implemented
 }
 
-void Document::removeNode(std::string& _key) {
+void Document::removeNode(const std::string& _key) {
     // TODO not implemented
 }
 

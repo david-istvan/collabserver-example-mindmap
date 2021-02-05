@@ -10,8 +10,8 @@ class Document : public collabserver::CollabData {
    public:
     Document(unsigned int _localUserID) : m_localUserID(_localUserID){};
 
-    Node& addNode(std::string& _key, std::string& _value);
-    void removeNode(std::string& _key);
+    Node& addNode(const std::string& _key, const std::string& _value);
+    void removeNode(const std::string& _key);
 
     bool applyExternOperation(unsigned int _id, const std::string& _buffer) override;
 

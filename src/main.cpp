@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include "mindmap/Mindmap.h"
 #include "modeling/Document.h"
@@ -6,6 +7,21 @@
 using namespace std;
 
 int main() {
+    unsigned int userLocalID = 42;  // A random ID for test (given by the server in real situation)
+    Document document(userLocalID);
+
+    Node& node1 = document.addNode("type", "Marker");
+    node1.setAttribute("name", "m1");
+    node1.setAttribute("isComposite", "true");
+
+    Node& node2 = document.addNode("type", "Model");
+    node2.setAttribute("name", "m2");
+    node2.setAttribute("isComposite", "false");
+    node2.removeAttribute("isComposite");
+
+    string node1_type = node1.getAttribute("type");
+    string node2_type = node2.getAttribute("type");
+
 #if 0
     // TODO Temporary commented
     // For now, the mindmap implementation is on hold (work on the modeling document instead)
