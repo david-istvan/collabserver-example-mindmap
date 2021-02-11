@@ -7,7 +7,7 @@ std::string Node::getAttribute(const std::string& _key) const {
     if (it != m_data.end()) {
         return it->second.query();
     }
-    return {};
+    return {};  // Create an empty string (copied on return)
 }
 
 void Node::setAttribute(const std::string& _key, const std::string& _value) {
@@ -17,22 +17,42 @@ void Node::setAttribute(const std::string& _key, const std::string& _value) {
     m_document.notifyOperationBroadcaster(op);
 }
 
-void Node::removeAttribute(const std::string _key) {
+void Node::removeAttribute(const std::string& _key) {
     Timestamp::setEffectiveID(m_document.getLocalUserID());
     NodeRemoveAttributeOperation op{m_nodeID, _key, Timestamp::now()};
     this->applyOperation(op);
     m_document.notifyOperationBroadcaster(op);
 }
 
-void Node::applyOperation(NodeSetAttributeOperation _op) {
+void Node::applyOperation(const NodeSetAttributeOperation& _op) {
     std::lock_guard<std::mutex> lock(m_operationMutex);
-    // TODO not implemented
-    // m_data.add(_op.m_key, _op.m_timestamp);
+
+    // Att doesn't exists -> created + set
+    // Att exists (older) -> set
+    // Att exists (newer) -> nothing
+
+    m_data.add(_op.m_key, _op.m_timestamp);
+
+    try {
+        bool isUpdated = m_data.at(_op.m_key).update(_op.m_value, _op.m_timestamp);
+        bool attrExists = (m_data.count(_op.m_key) > 0) ? true : false;
+        // Someone may have deleted this attribute.
+        // Still the update must be applied anyway (required by CRDT)
+        if (isUpdated && attrExists) {
+            m_document.notifyOperationObservers(_op);
+        }
+    } catch (const std::exception& e) {
+        // This is really unexpected, since the `at` method is done just after `add`
+    }
 }
 
-void Node::applyOperation(NodeRemoveAttributeOperation _op) {
+void Node::applyOperation(const NodeRemoveAttributeOperation& _op) {
     std::lock_guard<std::mutex> lock(m_operationMutex);
-    // TODO not implemented
+
+    bool isRemoved = m_data.remove(_op.m_key, _op.m_timestamp);
+    if (isRemoved) {
+        m_document.notifyOperationObservers(_op);
+    }
 }
 
 // -----------------------------------------------------------------------------

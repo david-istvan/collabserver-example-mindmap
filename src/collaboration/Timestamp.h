@@ -26,8 +26,6 @@ class Timestamp {
     /// \note
     /// The parameters is only used to allow "Timestamp t = 0".
     /// This may be weird, but this is required by CRDTs.
-    /// (See implementation). Note that, I had an issue with gcc 4.6.4 and
-    /// "Timestamp t = 0" was not compiling. Use "Timestamp t = {0}" instead.
     ///
     /// \param value Dummy value (See note)
     Timestamp(const int _value);

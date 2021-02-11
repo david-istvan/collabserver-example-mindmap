@@ -17,14 +17,14 @@ class Node {
     /// Returns a copy of the attribute value
     std::string getAttribute(const std::string& _key) const;
     void setAttribute(const std::string& _key, const std::string& _value);
-    void removeAttribute(const std::string _key);
+    void removeAttribute(const std::string& _key);
 
     enum Operations : unsigned int { NODE_SET_ATTRIBUTE_OPERATION, NODE_REMOVE_ATTRIBUTE_OPERATION };
     class NodeSetAttributeOperation;
     class NodeRemoveAttributeOperation;
 
-    void applyOperation(NodeSetAttributeOperation _op);
-    void applyOperation(NodeRemoveAttributeOperation _op);
+    void applyOperation(const NodeSetAttributeOperation& _op);
+    void applyOperation(const NodeRemoveAttributeOperation& _op);
 
    private:
     friend Document;
@@ -35,6 +35,8 @@ class Node {
     const unsigned int m_nodeID;  // Unique ID in the document
     std::mutex m_operationMutex;  // To allow one operation on all threads
 };
+
+// -----------------------------------------------------------------------------
 
 class Node::NodeSetAttributeOperation : public collabserver::CollabDataOperation {
    public:
