@@ -1,3 +1,4 @@
+#include <cassert>
 #include <iostream>
 #include <string>
 
@@ -10,17 +11,43 @@ int main() {
     unsigned int userLocalID = 42;  // A random ID for test (given by the server in real situation)
     Document document(userLocalID);
 
-    Node& node1 = document.addNode("type", "Marker");
-    node1.setAttribute("name", "m1");
-    node1.setAttribute("isComposite", "true");
+    std::cout << "---------------------------------------------" << std::endl;
+    std::cout << "Creating node1..." << std::endl;
+    Node* node1 = document.createNode();
+    assert(node1 != nullptr);
+    if (node1) {
+        node1->setAttribute("type", "Marker");
+        node1->setAttribute("name", "m1");
+        node1->setAttribute("isComposite", "true");
 
-    Node& node2 = document.addNode("type", "Model");
-    node2.setAttribute("name", "m2");
-    node2.setAttribute("isComposite", "false");
-    node2.removeAttribute("isComposite");
+        std::cout << "node1.type = " << node1->getAttribute("type") << std::endl;
+        std::cout << "node1.name = " << node1->getAttribute("name") << std::endl;
+        std::cout << "node1.isComposite = " << node1->getAttribute("isComposite") << std::endl;
 
-    string node1_type = node1.getAttribute("type");
-    string node2_type = node2.getAttribute("type");
+        std::cout << "Deleting node1..." << std::endl;
+        UUID node1UUID = node1->getNodeUUID();
+        document.deleteNode(node1UUID);
+        std::cout << "node1 == " << document.getNode(node1UUID) << std::endl;
+    }
+
+    std::cout << "---------------------------------------------" << std::endl;
+    Node* node2 = document.createNode();
+    assert(node2 != nullptr);
+    if (node2) {
+        node2->setAttribute("type", "Model");
+        node2->setAttribute("name", "m2");
+        node2->setAttribute("isComposite", "false");
+        node2->removeAttribute("isComposite");
+
+        std::cout << "node2.type = " << node2->getAttribute("type") << std::endl;
+        std::cout << "node2.name = " << node2->getAttribute("name") << std::endl;
+        std::cout << "node2.isComposite = " << node2->getAttribute("isComposite") << std::endl;
+
+        std::cout << "Deleting node2..." << std::endl;
+        UUID node2UUID = node2->getNodeUUID();
+        document.deleteNode(node2UUID);
+        std::cout << "node2 == " << document.getNode(node2UUID) << std::endl;
+    }
 
 #if 0
     // TODO Temporary commented
