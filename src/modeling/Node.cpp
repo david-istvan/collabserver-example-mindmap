@@ -1,5 +1,7 @@
 #include "Node.h"
 
+#include <msgpack.hpp>
+
 #include "Document.h"
 
 std::string Node::getAttribute(const std::string& _key) const {
@@ -25,6 +27,7 @@ void Node::removeAttribute(const std::string& _key) {
 }
 
 void Node::applyOperation(const NodeSetAttributeOperation& _op) {
+    assert(_op.m_nodeUUID == m_nodeUUID);
     std::lock_guard<std::mutex> lock(m_operationMutex);
 
     // Att doesn't exists -> created + set
@@ -47,6 +50,7 @@ void Node::applyOperation(const NodeSetAttributeOperation& _op) {
 }
 
 void Node::applyOperation(const NodeRemoveAttributeOperation& _op) {
+    assert(_op.m_nodeUUID == m_nodeUUID);
     std::lock_guard<std::mutex> lock(m_operationMutex);
 
     bool isRemoved = m_data.remove(_op.m_key, _op.m_timestamp);
@@ -62,12 +66,28 @@ Node::NodeSetAttributeOperation::NodeSetAttributeOperation(UUID _nodeUUID, const
     : m_nodeUUID(_nodeUUID), m_key(_key), m_value(_value), m_timestamp(_timestamp) {}
 
 bool Node::NodeSetAttributeOperation::serialize(std::stringstream& _buffer) const {
-    // TODO not implemented
+    msgpack::pack(_buffer, m_nodeUUID);
+    msgpack::pack(_buffer, m_key);
+    msgpack::pack(_buffer, m_value);
+    m_timestamp.serialize(_buffer);
     return true;
 }
 
 bool Node::NodeSetAttributeOperation::unserialize(const std::stringstream& _buffer) {
-    // TODO not implemented
+    std::string str(_buffer.str());
+    std::size_t offset = 0;
+
+    msgpack::object_handle r1 = msgpack::unpack(str.data(), str.size(), offset);
+    msgpack::object_handle r2 = msgpack::unpack(str.data(), str.size(), offset);
+    msgpack::object_handle r3 = msgpack::unpack(str.data(), str.size(), offset);
+
+    r1.get().convert(m_nodeUUID);
+    r2.get().convert(m_key);
+    r3.get().convert(m_value);
+
+    // TODO This is ugly (to update with actual bit reading instead of string)
+    std::stringstream bufferTimestamps(str.substr(offset));
+    m_timestamp.unserialize(bufferTimestamps);
     return true;
 }
 
@@ -82,12 +102,25 @@ Node::NodeRemoveAttributeOperation::NodeRemoveAttributeOperation(UUID _nodeUUID,
     : m_nodeUUID(_nodeUUID), m_key(_key), m_timestamp(_timestamp) {}
 
 bool Node::NodeRemoveAttributeOperation::serialize(std::stringstream& _buffer) const {
-    // TODO not implemented
+    msgpack::pack(_buffer, m_nodeUUID);
+    msgpack::pack(_buffer, m_key);
+    m_timestamp.serialize(_buffer);
     return true;
 }
 
 bool Node::NodeRemoveAttributeOperation::unserialize(const std::stringstream& _buffer) {
-    // TODO not implemented
+    std::string str(_buffer.str());
+    std::size_t offset = 0;
+
+    msgpack::object_handle r1 = msgpack::unpack(str.data(), str.size(), offset);
+    msgpack::object_handle r2 = msgpack::unpack(str.data(), str.size(), offset);
+
+    r1.get().convert(m_nodeUUID);
+    r2.get().convert(m_key);
+
+    // TODO This is ugly (to update with actual bit reading instead of string)
+    std::stringstream bufferTimestamps(str.substr(offset));
+    m_timestamp.unserialize(bufferTimestamps);
     return true;
 }
 

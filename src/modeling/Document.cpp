@@ -1,5 +1,7 @@
 #include "Document.h"
 
+#include <msgpack.hpp>
+
 Document::~Document() {
     // TODO Free memory (or use std::unique_ptr instead)
 }
@@ -46,8 +48,88 @@ void Document::applyOperation(const DocumentDeleteNodeOperation& _op) {
     }
 }
 
+void Document::applyOperation(const Node::NodeSetAttributeOperation& _op) {
+    std::lock_guard<std::mutex> lock(m_operationMutex);
+
+    // Also add the node of this attribute
+    // TODO this is like calling applyOperation(DocumentCreateNodeOperation) but mutex do a would race-condition
+    bool isAdded = m_nodes.add(_op.m_nodeUUID, _op.m_timestamp);
+    if (isAdded) {
+        m_nodes.at(_op.m_nodeUUID) = new Node(*this, _op.m_nodeUUID);
+        this->notifyOperationObservers(_op);
+    }
+
+    Node* node = m_nodes.crdt_at(_op.m_nodeUUID);
+    if (node) {
+        // We just added, but Node could be removed more recently
+        bool isNodeAlive = (m_nodes.count(_op.m_nodeUUID) > 0) ? true : false;
+
+        // TODO Bug if the node is removed, but operation applied, the application will be notified (but should not)
+        node->applyOperation(_op);
+    }
+}
+
+void Document::applyOperation(const Node::NodeRemoveAttributeOperation& _op) {
+    std::lock_guard<std::mutex> lock(m_operationMutex);
+
+    // Also add the node of this attribute
+    // TODO this is like calling applyOperation(DocumentCreateNodeOperation) but mutex do a would race-condition
+    bool isAdded = m_nodes.add(_op.m_nodeUUID, _op.m_timestamp);
+    if (isAdded) {
+        m_nodes.at(_op.m_nodeUUID) = new Node(*this, _op.m_nodeUUID);
+        this->notifyOperationObservers(_op);
+    }
+
+    Node* node = m_nodes.crdt_at(_op.m_nodeUUID);
+    if (node) {
+        // We just added, but Node could be removed more recently
+        bool isNodeAlive = (m_nodes.count(_op.m_nodeUUID) > 0) ? true : false;
+
+        // TODO Bug if the node is removed, but operation applied, the application will be notified (but should not)
+        node->applyOperation(_op);
+    }
+}
+
 bool Document::applyExternOperation(unsigned int _id, const std::string& _buffer) {
-    // TODO not implemented
+    std::stringstream opBuffer(_buffer);  // TODO Remove useless copy
+
+    switch (_id) {
+        case DOC_CREATE_NODE_OPERATION: {
+            DocumentCreateNodeOperation op{};
+            if (!op.unserialize(opBuffer)) {
+                return false;
+            }
+            Timestamp::setEffectiveID(op.m_timestamp.getID());
+            applyOperation(op);
+        } break;
+        case DOC_DELETE_NODE_OPERATION: {
+            DocumentDeleteNodeOperation op{};
+            if (!op.unserialize(opBuffer)) {
+                return false;
+            }
+            Timestamp::setEffectiveID(op.m_timestamp.getID());
+            applyOperation(op);
+        } break;
+        case Node::Operations::NODE_SET_ATTRIBUTE_OPERATION: {
+            Node::NodeSetAttributeOperation op{};
+            if (!op.unserialize(opBuffer)) {
+                return false;
+            }
+            // Get attribute for ID
+            Timestamp::setEffectiveID(op.m_timestamp.getID());
+            applyOperation(op);
+        } break;
+
+        case Node::Operations::NODE_REMOVE_ATTRIBUTE_OPERATION: {
+            Node::NodeRemoveAttributeOperation op{};
+            if (!op.unserialize(opBuffer)) {
+                return false;
+            }
+            Timestamp::setEffectiveID(op.m_timestamp.getID());
+            applyOperation(op);
+        } break;
+    }
+
     return false;
 }
 
@@ -57,13 +139,23 @@ Document::DocumentCreateNodeOperation::DocumentCreateNodeOperation(UUID _nodeUUI
     : m_nodeUUID(_nodeUUID), m_timestamp(_timestamp) {}
 
 bool Document::DocumentCreateNodeOperation::serialize(std::stringstream& _buffer) const {
-    // TODO
-    return false;
+    msgpack::pack(_buffer, m_nodeUUID);
+    m_timestamp.serialize(_buffer);
+    return true;
 }
 
 bool Document::DocumentCreateNodeOperation::unserialize(const std::stringstream& _buffer) {
-    // TODO
-    return false;
+    std::string str(_buffer.str());
+    std::size_t offset = 0;
+
+    msgpack::object_handle r1 = msgpack::unpack(str.data(), str.size(), offset);
+    m_nodeUUID = r1.get().as<UUID>();
+
+    // TODO This is ugly (to update with actual bit reading instead of string)
+    std::stringstream bufferTimestamps(str.substr(offset));
+    m_timestamp.unserialize(bufferTimestamps);
+
+    return true;
 }
 
 void Document::DocumentCreateNodeOperation::accept(collabserver::CollabDataOperationHandler& _handler) const {
@@ -76,13 +168,23 @@ Document::DocumentDeleteNodeOperation::DocumentDeleteNodeOperation(UUID _nodeUUI
     : m_nodeUUID(_nodeUUID), m_timestamp(_timestamp) {}
 
 bool Document::DocumentDeleteNodeOperation::serialize(std::stringstream& _buffer) const {
-    // TODO not implemented;
-    return false;
+    msgpack::pack(_buffer, m_nodeUUID);
+    m_timestamp.serialize(_buffer);
+    return true;
 }
 
 bool Document::DocumentDeleteNodeOperation::unserialize(const std::stringstream& _buffer) {
-    // TODO not implemented;
-    return false;
+    std::string str(_buffer.str());
+    std::size_t offset = 0;
+
+    msgpack::object_handle r1 = msgpack::unpack(str.data(), str.size(), offset);
+    m_nodeUUID = r1.get().as<UUID>();
+
+    // TODO This is ugly (to update with actual bit reading instead of string)
+    std::stringstream bufferTimestamps(str.substr(offset));
+    m_timestamp.unserialize(bufferTimestamps);
+
+    return true;
 }
 
 void Document::DocumentDeleteNodeOperation::accept(collabserver::CollabDataOperationHandler& _handler) const {

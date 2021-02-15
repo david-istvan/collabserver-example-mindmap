@@ -32,6 +32,8 @@ class Document : public collabserver::CollabData {
    private:
     void applyOperation(const DocumentCreateNodeOperation& _op);
     void applyOperation(const DocumentDeleteNodeOperation& _op);
+    void applyOperation(const Node::NodeSetAttributeOperation& _op);
+    void applyOperation(const Node::NodeRemoveAttributeOperation& _op);
 
     unsigned int m_localUserID = 0;  // ID of the local user (set by the server)
     collabserver::LWWMap<UUID, Node*, Timestamp> m_nodes;

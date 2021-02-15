@@ -31,10 +31,10 @@ class Node {
     class NodeSetAttributeOperation;
     class NodeRemoveAttributeOperation;
 
-   private:
     void applyOperation(const NodeSetAttributeOperation& _op);
     void applyOperation(const NodeRemoveAttributeOperation& _op);
 
+   private:
     friend Document;
     Node(Document& _document, UUID _nodeUUID) : m_document(_document), m_nodeUUID(_nodeUUID){};
 
