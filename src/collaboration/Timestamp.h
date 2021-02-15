@@ -1,6 +1,7 @@
 #pragma once
 
 #include <chrono>
+#include <sstream>
 
 /// \brief
 /// Timestamps implementation that uses a chrono + unique user ID.
@@ -13,11 +14,10 @@
 /// timestamp are resolved using the ID).
 ///
 /// \par Effective ID
-/// Whenever a timestamp is created, its 'user ID' is set with the current
-/// effectiveID.
+/// Whenever a timestamp is created, its 'user ID' is set with the current effectiveID.
 class Timestamp {
    public:
-    typedef std::chrono::steady_clock Clock;
+    typedef std::chrono::steady_clock Clock;  // TODO Check if this should be changed to system_clock
     typedef std::chrono::time_point<Clock> TimePoint;
 
     /// Create a timestamp with the minimal possible value.
@@ -49,6 +49,18 @@ class Timestamp {
     /// \param id Current effective ID to use.
     /// \see Timestamp
     static void setEffectiveID(const unsigned int id);
+
+    /// Serialize the timestamp.
+    ///
+    /// \param buffer Where to place serialized data.
+    /// \return True if successfully serialized, otherwise, return false.
+    bool serialize(std::stringstream& buffer) const;
+
+    /// UnSerialize the timestamp.
+    ///
+    /// \param buffer Where to place unserialized data.
+    /// \return The offset position of the buffer after unserialize.
+    std::size_t unserialize(const std::stringstream& buffer);
 
     // -------------------------------------------------------------------------
 

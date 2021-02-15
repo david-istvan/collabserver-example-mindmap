@@ -1,6 +1,7 @@
 #include "collaboration/Timestamp.h"
 
 #include <cassert>
+#include <msgpack.hpp>
 
 unsigned int Timestamp::m_effectiveID = 0;
 
@@ -27,6 +28,26 @@ Timestamp Timestamp::now() {
 }
 
 void Timestamp::setEffectiveID(const unsigned int id) { Timestamp::m_effectiveID = id; }
+
+bool Timestamp::serialize(std::stringstream& _buffer) const {
+    Timestamp::Clock::duration currentTime = m_time.time_since_epoch();
+    msgpack::pack(_buffer, m_id);
+    msgpack::pack(_buffer, currentTime.count());
+    return true;
+}
+
+std::size_t Timestamp::unserialize(const std::stringstream& _buffer) {
+    std::string str(_buffer.str());
+    std::size_t offset = 0;
+
+    msgpack::object_handle r1 = msgpack::unpack(str.data(), str.size(), offset);
+    msgpack::object_handle r2 = msgpack::unpack(str.data(), str.size(), offset);
+
+    unsigned int id = r1.get().as<unsigned int>();
+    auto time = r2.get().as<Timestamp::Clock::rep>();
+    m_time = Timestamp::TimePoint(Timestamp::Clock::duration(time));
+    return offset;
+}
 
 // -----------------------------------------------------------------------------
 
